@@ -1,6 +1,14 @@
+import { useState } from 'react'
 import './App.css'
 
 function App() {
+
+  const [Question, setQuestion] = useState("")
+
+  const askQuestion =()=>{
+    console.log(Question)
+  }
+
   return (
     <>
       <div className="grid grid-cols-5 h-screen text-center">
@@ -14,8 +22,10 @@ function App() {
                 type="text"
                 className="w-full h-full p-3 outline-none bg-transparent"
                 placeholder="Ask me anything..."
+                onChange={(e)=>setQuestion(e.target.value)}
+                value={Question}
               />
-              <button className="px-4">Ask</button>
+              <button onClick={askQuestion} className="px-4">Ask</button>
             </div>
           </div>
         </div>
