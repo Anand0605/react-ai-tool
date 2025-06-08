@@ -2,8 +2,8 @@ import React from 'react';
 
 function Sidebar({ chatHistory, onToggle, onClearHistory, onDeleteHistoryItem }) {
   return (
-    <div className=" flex flex-col justify-between p-4 h-screen hide-scrollbar">
-      {/* Top bar with logo and close icon */}
+    <div className="flex flex-col justify-between p-4 h-screen hide-scrollbar">
+      {/* Top bar */}
       <div className="flex justify-between items-center mb-4">
         <div className="text-white text-xl font-bold">Nexa</div>
         <button
@@ -15,38 +15,34 @@ function Sidebar({ chatHistory, onToggle, onClearHistory, onDeleteHistoryItem })
         </button>
       </div>
 
-      {/* Chat history list with vertical scrollbar */}
+      {/* History List */}
       <div
-        className="flex-1 overflow-y-auto space-y-2"
+        className="flex-1 overflow-y-auto space-y-1 hide-scrollbar"
         style={{ maxHeight: 'calc(100vh - 120px)' }}
       >
-        {chatHistory
-          .map((item, originalIndex) => ({ item, originalIndex })) // original index preserve
-          .filter(({ item }) => item.type === 'user')
-          .map(({ item, originalIndex }) => (
-            <div
-              key={originalIndex}
-              className="bg-zinc-700 text-white text-sm px-3 py-2 rounded flex justify-between items-center cursor-pointer hover:bg-zinc-600"
+        {chatHistory.map((item, index) => (
+          <div key={index} className="group flex items-center justify-between">
+            <button
               title={item.text}
+              className="w-full text-left text-sm text-white truncate px-3 py-1 rounded hover:bg-zinc-700 border border-zinc-600"
             >
-              <span className="truncate max-w-[80%]">
-                {item.text.length > 50 ? item.text.slice(0, 50) + '...' : item.text}
-              </span>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation(); // prevent parent click
-                  onDeleteHistoryItem(originalIndex);
-                }}
-                className="text-red-400 hover:text-red-600 ml-2"
-                title="Delete this item"
-              >
-                ✖️
-              </button>
-            </div>
-          ))}
+              {item.text.length > 50 ? item.text.slice(0, 50) + '...' : item.text}
+            </button>
+            <button
+  onClick={(e) => {
+    e.stopPropagation();
+    onDeleteHistoryItem(index);
+  }}
+  className="ml-2 text-red-500 hover:text-red-700 text-sm"
+  title="Delete this item"
+>
+  ❌
+</button>
+          </div>
+        ))}
       </div>
 
-      {/* Clear history button */}
+      {/* Clear History Button */}
       <div className="mt-4">
         <button
           onClick={onClearHistory}

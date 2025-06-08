@@ -10,7 +10,7 @@ const Answers = ({ ans, isAI }) => {
 
   return (
     <div className={`flex ${isAI ? 'justify-end' : 'justify-start'} mb-2`}>
-      <div className={`max-w-[70%] px-4 py-2 ${isAI ? 'bg-blue-600 text-white' : 'bg-gray-700 text-white'} rounded-xl`}>
+      <div className={`max-w-[70%] px-4 py-2 ${isAI ? 'bg-blue-600 text-white' : ' text-white'} rounded-xl`}>
         {parts.map((line, index) => {
           const [heading, ...rest] = line.split(':');
           const content = rest.join(':').trim();
